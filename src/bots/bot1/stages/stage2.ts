@@ -13,7 +13,7 @@ export const stageTwo: iStage = {
                 stageStorage[params.from].option = returnedMessage;
                 return ['Por gentileza, digite seu nome:']
             default:
-                return ["Opção Inválida! Por favor, escolha novamente!"]
+                return ["❌Opção Inválida! Por favor, escolha novamente!"]
         }
 
     }

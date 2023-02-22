@@ -1,34 +1,53 @@
-import { iStageStorage } from './@types/myTypes';
 import {
     stageOne,
     stageTwo,
     stageThree,
     stageFour,
     stageFive,
+    stageSix,
+    stageSeven,
+    stageEight,
+    stageNine,
   } from './bots/bot1/stages';
   
   import { stageStorage } from './stageStorage';
   
   export const stages = [
     {
-      descricao: 'Welcome',
+      descricao: 'Welcome and Menu',
       stage: stageOne,
     },
     {
-      descricao: 'Menu',
+      descricao: 'Name',
       stage: stageTwo,
     },
     {
-      descricao: 'Address',
+      descricao: 'Email',
       stage: stageThree,
     },
     {
-      descricao: 'Bill',
+      descricao: 'Name/Email Confirmation',
       stage: stageFour,
     },
     {
-      descricao: 'Assistent',
+      descricao: 'Redirect',
       stage: stageFive,
+    },
+    {
+      descricao: 'Farmácia de Manipulação',
+      stage: stageSix,
+    },
+    {
+      descricao: 'Farmácia Comum',
+      stage: stageSeven,
+    },
+    {
+      descricao: 'Compra de produtos',
+      stage: stageEight,
+    },
+    {
+      descricao: 'Falar direto com revendedor',
+      stage: stageNine,
     },
   ];
   

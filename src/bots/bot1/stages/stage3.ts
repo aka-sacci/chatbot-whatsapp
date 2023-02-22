@@ -9,9 +9,9 @@ export const stageThree: iStage = {
             case 'string':
                 stageStorage[params.from].stage = 3;
                 stageStorage[params.from].name = returnedMessage;
-                return ['Agora, Por gentileza, digite seu email:']
+                return ['Certo! Agora, por gentileza, digite seu email:']
             default:
-                return ["Por favor, digite o seu nome!"]
+                return ["❌Opção inválida! Por favor, escreva seu nome!"]
         }
 
     }

@@ -5,6 +5,6 @@
 
 ## Next Features
 
-- Ajustar como será o "Fim de estágio";
-- Ajustar o timeout de conversas;
-- Programar as rotas
+- Ajustar o timeout das conversas;
+- Programar as rotas✔️
+- Rever emojis nos stages ✔️

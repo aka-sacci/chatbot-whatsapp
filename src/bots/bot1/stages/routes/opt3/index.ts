@@ -1,0 +1,2 @@
+export const optionThreeRouteInit = ['😃 Show! Para agilizar o seu atendimento, pode por gentileza nos informar qual produto você está buscando?',
+    'Ah, caso você tenha a foto do produto, especificação ou link, pode nos enviar por aqui! 😉'];

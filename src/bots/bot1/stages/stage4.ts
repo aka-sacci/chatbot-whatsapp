@@ -10,13 +10,13 @@ export const stageFour: iStage = {
                 stageStorage[params.from].stage = 4;
                 stageStorage[params.from].email = returnedMessage;
                 return [
-                'Cheque suas informações:',
+                'Ótimo! Por gentileza, cheque suas informações:',
                 `Nome: ${stageStorage[params.from].name}`,
                 `Email: ${stageStorage[params.from].email}`,
-                `As informações estão corretas? \n *1 - Sim* \n *2 - Não*`
+                `As informações estão corretas? \n *1 - Sim✔️* \n *2 - Não❌*`
                 ]
             default:
-                return ["Por favor, digite o seu email!"]
+                return ["❌ Opção inválida! Por favor, escreva o seu email!"]
         }
 
     }

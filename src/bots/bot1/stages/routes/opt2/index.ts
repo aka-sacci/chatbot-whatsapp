@@ -1,0 +1,2 @@
+export const optionTwoRouteInit = ['😃 Show! Para agilizar o seu atendimento, pode por gentileza nos informar qual(is) medicamentos foram descritos na receita?',
+    'Ah, caso você tenha a foto da dela, pode nos enviar por aqui! 😉'];
