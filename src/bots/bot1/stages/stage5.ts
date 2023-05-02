@@ -3,7 +3,7 @@ import { routes } from "../../../routes";
 import { stageStorage } from "../../../stageStorage";
 
 export const stageFive: iStage = {
-    exec(params: iStageParams) {
+    async exec(params: iStageParams) {
         const returnedMessage = params.message;
 
         switch (returnedMessage) {

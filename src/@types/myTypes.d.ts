@@ -1,7 +1,7 @@
 import { Whatsapp } from 'venom-bot';
 
 export interface iStage {
-    exec(params?: iStageParams): Array<string>;
+    async exec(params?: iStageParams): Promise<Array<string>>;
 }
 
 export interface iStageParams {
@@ -13,9 +13,26 @@ export interface iStageParams {
 
 export interface iStageStorage {
     [key: string]: {
-    stage: number,
-    option?: string,
-    name?: string,
-    email?: string
+        stage: number,
+        option?: string,
+        name?: string,
+        email?: string,
+        contactData?: iContactData,
+        registered?: boolean
     }
+}
+
+export interface iContactAddress {
+    street: string,
+    number: number,
+    district: string,
+    cep: number,
+    complement?: string
+}
+
+export interface iContactData {
+    phone: string,
+    name: string,
+    registered: boolean,
+    address?: iContactAddress
 }

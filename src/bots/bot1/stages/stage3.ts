@@ -2,7 +2,7 @@ import { iStage, iStageParams } from "../../../@types/myTypes";
 import { stageStorage } from "../../../stageStorage";
 
 export const stageThree: iStage = {
-    exec(params: iStageParams){
+    async exec(params: iStageParams){
         const returnedMessage = params.message;
 
         switch (typeof returnedMessage) {
