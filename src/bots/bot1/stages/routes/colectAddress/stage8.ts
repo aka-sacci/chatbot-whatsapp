@@ -5,8 +5,8 @@ import returnUserDataMenu from "../../../utils/returnUserDataMenu";
 
 export const stageEight: iStage = {
     async exec(params: iStageParams) {
-        if (typeof params.message === 'string') {
-            let complement = params.message === "0" ? undefined : params.message
+        if (params.message.type === 'chat') {
+            let complement = params.message.body === "0" ? undefined : params.message.body
             stageStorage[params.from].contactData.address = {
                 street: String(stageStorage[params.from].contactData.address?.street),
                 number: Number(stageStorage[params.from].contactData.address?.number),

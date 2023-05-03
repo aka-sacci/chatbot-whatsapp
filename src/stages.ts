@@ -1,4 +1,5 @@
 import { stageZero, stageFive, stageFour, stageOne, stageSix, stageTwo, stageThree, stageSeven, stageEight } from './bots/bot1/stages';
+import { stageTest } from './bots/bot1/stages/stageTest';
   
   import { stageStorage } from './stageStorage';
   

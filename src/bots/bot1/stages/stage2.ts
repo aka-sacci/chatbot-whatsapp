@@ -4,7 +4,7 @@ import { stageStorage } from "../../../stageStorage";
 
 export const stageTwo: iStage = {
     async exec(params: iStageParams) {
-        const returnedMessage = params.message;
+        const returnedMessage = params.message.body;
 
         switch (returnedMessage) {
             case '1':
@@ -19,7 +19,7 @@ export const stageTwo: iStage = {
                 stageStorage[params.from].stage = 4;
                 stageStorage[params.from].comeFromStage = 2
                 return ['Sem problemas! Iremos coletar o seu endereço novamente.',
-                "Por favor, digite *APENAS* o nome da *RUA*, *AVENIDA* ou *TRAVESSA* que você mora:"]
+                "Por favor, digite o nome da *RUA*, *AVENIDA* ou *TRAVESSA* que você mora:"]
             default:
                 return ["❌Opção Inválida!"]
         }

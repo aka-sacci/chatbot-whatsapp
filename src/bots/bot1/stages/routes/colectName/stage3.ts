@@ -6,9 +6,9 @@ import returnUserDataMenu from "../../../utils/returnUserDataMenu";
 export const stageThree: iStage = {
     async exec(params: iStageParams) {
         let returnedMessage = ""
-        returnedMessage = params.message;
+        returnedMessage = params.message.body;
 
-        if (typeof returnedMessage === 'string') {
+        if (params.message.type === 'chat') {
             stageStorage[params.from].contactData = {
                 phone: params.from,
                 name: returnedMessage,
@@ -38,7 +38,7 @@ export const stageThree: iStage = {
                     return ['Houve um problema interno! Por favor, tente novamente!']
             }
         } else {
-            return ["❌ Opção inválida! Por favor, escreva o seu nome!"]
+            return ["❌ Formato inválid! Por favor, *digite* o seu nome!"]
         }
 
     }

@@ -1,17 +1,17 @@
-import { iContactData } from "../../../../@types/myTypes";
+import { iContactData, iReturnContactDataObject } from "../../../../@types/myTypes";
 
 const axios = require('axios');
 axios.defaults.withCredentials = true
 require('dotenv').config();
 
 const httpMainUrl = process.env.HTTP_MAIN;
-const httpReturnContactData = process.env.HTTP_RETURNCONTACTDARA;
+const httpReturnContactData = process.env.HTTP_RETURNCONTACTDATA;
 
 export default async function returnContactData(phone: string): Promise<iContactData> {
     let url = httpMainUrl + '' + httpReturnContactData + '' + phone
     let response = await axios.get(url)
-        .then((contactData: iContactData) => {
-            return contactData
+        .then((contactData: iReturnContactDataObject) => {
+            return contactData.data
         })
         .catch((err: Error) => {
             let errorCode = err.message.substring(err.message.length - 3)

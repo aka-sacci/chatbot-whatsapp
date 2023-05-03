@@ -3,7 +3,7 @@ import { stageStorage } from "../../../../../stageStorage";
 
 export const stageSix: iStage = {
     async exec(params: iStageParams) {
-        const returnedMessage = params.message;
+        const returnedMessage = params.message.body;
         stageStorage[params.from].stage = 9;
         if(returnedMessage.isMedia === false){
             //Grava a mensagem no banco de dados

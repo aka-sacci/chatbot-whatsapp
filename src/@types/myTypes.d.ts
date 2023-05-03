@@ -37,3 +37,7 @@ export interface iContactData {
     registered: boolean,
     address?: iContactAddress
 }
+
+export interface iReturnContactDataObject {
+    data: iContactData
+}

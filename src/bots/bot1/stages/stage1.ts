@@ -4,7 +4,7 @@ import returnUserDataMenu from "../utils/returnUserDataMenu";
 
 export const stageOne: iStage = {
     async exec(params: iStageParams) {
-        const returnedMessage = params.message;
+        const returnedMessage = params.message.body;
 
         switch (returnedMessage) {
             case '1':
@@ -12,7 +12,6 @@ export const stageOne: iStage = {
             case '3':
                 stageStorage[params.from].option = returnedMessage;
                 if (stageStorage[params.from].registered === true) {
-                    //cadastro identificado
                     stageStorage[params.from].stage = 2;
                     let retunedData = returnUserDataMenu(params.from, 1)
                     return [...retunedData]
