@@ -18,6 +18,7 @@ export const stageThree: iStage = {
                     number: Number(stageStorage[params.from].contactData.address?.number),
                     district: String(stageStorage[params.from].contactData.address?.district),
                     cep: Number(stageStorage[params.from].contactData.address?.cep),
+                    
                 }
             }
 
