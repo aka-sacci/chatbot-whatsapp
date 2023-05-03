@@ -17,8 +17,9 @@ export interface iStageStorage {
         option?: string,
         name?: string,
         email?: string,
-        contactData?: iContactData,
-        registered?: boolean
+        contactData: iContactData,
+        registered?: boolean,
+        comeFromStage?: number
     }
 }
 

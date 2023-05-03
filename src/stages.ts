@@ -1,53 +1,43 @@
-import {
-    stageOne,
-    stageTwo,
-    stageThree,
-    stageFour,
-    stageFive,
-    stageSix,
-    stageSeven,
-    stageEight,
-    stageNine,
-  } from './bots/bot1/stages';
+import { stageZero, stageFive, stageFour, stageOne, stageSix, stageTwo, stageThree, stageSeven, stageEight } from './bots/bot1/stages';
   
   import { stageStorage } from './stageStorage';
   
   export const stages = [
     {
       descricao: 'Welcome and Menu',
+      stage: stageZero,
+    },
+    {
+      descricao: 'Show saved contact data OR collect his name',
       stage: stageOne,
     },
     {
-      descricao: 'Name',
+      descricao: 'Data confirmation (if contact is registered)',
       stage: stageTwo,
     },
     {
-      descricao: 'Email',
+      descricao: 'Get contact Name',
       stage: stageThree,
     },
     {
-      descricao: 'Name/Email Confirmation',
+      descricao: 'Get contact Street',
       stage: stageFour,
     },
     {
-      descricao: 'Redirect',
+      descricao: 'Get contact house number',
       stage: stageFive,
     },
     {
-      descricao: 'Farmácia de Manipulação',
+      descricao: 'Get contact CEP',
       stage: stageSix,
     },
     {
-      descricao: 'Farmácia Comum',
+      descricao: 'Get contact Complement',
       stage: stageSeven,
     },
     {
-      descricao: 'Compra de produtos',
+      descricao: 'Update or create a contact',
       stage: stageEight,
-    },
-    {
-      descricao: 'Falar direto com revendedor',
-      stage: stageNine,
     },
   ];
   
@@ -59,7 +49,18 @@ import {
       stage: 0,
       email: '',
       name: '',
-      option: ""
+      option: "",
+      contactData: {
+        name: "",
+        phone: "",
+        registered: false,
+        address: {
+          street: "",
+          number: 0,
+          district: "",
+          cep: 0
+        }
+      }
     };
   
     return stageStorage[from].stage;
