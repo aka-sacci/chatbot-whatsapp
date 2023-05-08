@@ -1,10 +1,10 @@
 import { iStage, iStageParams } from "../../../@types/myTypes";
+import returnGreeting from "../utils/returnGreeting";
 
 export const stageTest: iStage = {
     async exec(params: iStageParams) {
-        console.log(typeof params.message.body)
-        console.log(params.message.type)
-        return ["👋 Este é um stage teste."
-        ];
+        let greeting = returnGreeting()
+        console.log(greeting)
+        return ["👋 Este é um stage teste."];
     }
 }
