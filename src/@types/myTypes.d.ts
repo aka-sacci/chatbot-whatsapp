@@ -4,10 +4,14 @@ export interface iStage {
     async exec(params?: iStageParams): Promise<Array<string>>;
 }
 
+export interface iTalkStage {
+    async exec(params?: iStageParams): Promise<void>
+}
+
 export interface iStageParams {
     from: string,
     message?: any,
-    client?: Whatsapp,
+    client: Whatsapp,
     choosenRoute?: number
 }
 
@@ -19,7 +23,10 @@ export interface iStageStorage {
         email?: string,
         contactData: iContactData,
         registered?: boolean,
-        comeFromStage?: number
+        comeFromStage?: number,
+        inactivityTimer?: string,
+        userDisponibilityTimer?: string
+
     }
 }
 
@@ -38,6 +45,14 @@ export interface iContactData {
     address?: iContactAddress
 }
 
-export interface iReturnContactDataObject {
-    data: iContactData
+export interface iReturnServiceData {
+    data: iContactData | iReturnUserDisponibilityData | iReturnChatIDData
+}
+
+export interface iReturnUserDisponibilityData {
+    sessionID: number
+}
+
+export interface iReturnChatIDData {
+    chatID: number
 }

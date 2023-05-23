@@ -1,5 +1,4 @@
 import { iStage, iStageParams } from "../../../@types/myTypes";
-import { routes } from "../../../routes";
 import { stageStorage } from "../../../stageStorage";
 
 export const stageTwo: iStage = {
@@ -9,7 +8,7 @@ export const stageTwo: iStage = {
         switch (returnedMessage) {
             case '1':
                 stageStorage[params.from].stage = 0;
-                return ['Agorá é só o redirecionamento :D']
+                return ['Tudo certo! Só um momento enquato ligamos você a um dos nossos colaboradores.']
             case '2':
                 stageStorage[params.from].stage = 3;
                 stageStorage[params.from].comeFromStage = 2

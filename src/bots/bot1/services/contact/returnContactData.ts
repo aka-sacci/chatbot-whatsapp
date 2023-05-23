@@ -1,4 +1,4 @@
-import { iContactData, iReturnContactDataObject } from "../../../../@types/myTypes";
+import { iContactData, iReturnServiceData } from "../../../../@types/myTypes";
 
 const axios = require('axios');
 axios.defaults.withCredentials = true
@@ -10,7 +10,7 @@ const httpReturnContactData = process.env.HTTP_RETURNCONTACTDATA;
 export default async function returnContactData(phone: string): Promise<iContactData> {
     let url = httpMainUrl + '' + httpReturnContactData + '' + phone
     let response = await axios.get(url)
-        .then((contactData: iReturnContactDataObject) => {
+        .then((contactData: iReturnServiceData) => {
             return contactData.data
         })
         .catch((err: Error) => {
