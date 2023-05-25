@@ -1,4 +1,4 @@
-import { stageZero, stageFive, stageFour, stageOne, stageSix, stageTwo, stageThree, stageSeven, stageEight, stageNine } from './bots/bot1/stages';
+import { stageZero, stageFive, stageFour, stageOne, stageSix, stageTwo, stageThree, stageSeven, stageEight, stageNine, stageTen } from './bots/bot1/stages';
 import { stageTest } from './bots/bot1/stages/stageTest';
 
 import { stageStorage } from './stageStorage';
@@ -41,8 +41,12 @@ export const stages = [
     stage: stageEight,
   },
   {
-    descricao: 'Check if is free attendants',
+    descricao: 'Check if are free attendants',
     stage: stageNine
+  },
+  {
+    descricao: 'Talk',
+    stage: stageTen
   }
 ];
 
@@ -66,8 +70,10 @@ export function getStage(from: string): number {
         cep: 0
       }
     },
-    inactivityTimer: "",
-    userDisponibilityTimer: ""
+    inactivityTimer: false,
+    userDisponibilityTimer: false,
+    syncMessageLoop: false,
+    chatID: 0
   };
 
   return stageStorage[from].stage;

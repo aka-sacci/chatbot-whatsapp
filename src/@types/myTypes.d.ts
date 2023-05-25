@@ -1,16 +1,23 @@
-import { Whatsapp } from 'venom-bot';
+import { Message, Whatsapp } from 'venom-bot';
 
 export interface iStage {
     async exec(params?: iStageParams): Promise<Array<string>>;
 }
 
+export interface iCreateTalkStage {
+    async exec(params?: iStageParams): Promise<void>,
+    async execCreateChat(attendantSession: number, params: iStageParams): Promise<void>
+    async execCreateSyncLoop(params: iStageParams): Promise<void>
+}
+
 export interface iTalkStage {
-    async exec(params?: iStageParams): Promise<void>
+    async exec(params?: iStageParams): Promise<void>,
+    async execDecryptFile(message: Message, client: Whatsapp, fileExtension: string): Promise<String | undefined>
 }
 
 export interface iStageParams {
     from: string,
-    message?: any,
+    message: Message,
     client: Whatsapp,
     choosenRoute?: number
 }
@@ -24,9 +31,10 @@ export interface iStageStorage {
         contactData: iContactData,
         registered?: boolean,
         comeFromStage?: number,
-        inactivityTimer?: string,
-        userDisponibilityTimer?: string
-
+        inactivityTimer?: boolean,
+        userDisponibilityTimer?: boolean
+        syncMessageLoop: boolean,
+        chatID: number
     }
 }
 
@@ -55,4 +63,12 @@ export interface iReturnUserDisponibilityData {
 
 export interface iReturnChatIDData {
     chatID: number
+}
+
+export interface iSendMessageProps {
+    chat: number,
+    type: string,
+    content: string,
+    filename: buffer | undefined,
+    fileExtension: string |undefined 
 }

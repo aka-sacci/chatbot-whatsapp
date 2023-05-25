@@ -7,7 +7,7 @@ export const stageTwo: iStage = {
 
         switch (returnedMessage) {
             case '1':
-                stageStorage[params.from].stage = 0;
+                stageStorage[params.from].stage = 9;
                 return ['Tudo certo! Só um momento enquato ligamos você a um dos nossos colaboradores.']
             case '2':
                 stageStorage[params.from].stage = 3;
