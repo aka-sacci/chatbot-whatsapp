@@ -6,7 +6,7 @@ import { stageStorage } from './stageStorage';
 export const stages = [
   {
     descricao: 'Welcome and Menu',
-    stage: stageTest,
+    stage: stageZero,
   },
   {
     descricao: 'Show saved contact data OR collect his name',

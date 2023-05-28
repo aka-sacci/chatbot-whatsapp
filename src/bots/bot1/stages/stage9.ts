@@ -2,13 +2,14 @@ import { iStageParams, iCreateTalkStage } from "../../../@types/myTypes";
 import { stageStorage } from "../../../stageStorage";
 import messageLoop from "../../../utils/messageLoop";
 import setDelay from "../../../utils/setDelay";
-import { createNewChat, getAttendantSessionID } from "../providers/chat";
+import { createNewChat, getAttendantSessionID, saveProfilePic } from "../providers/chat";
 import returnProtocolNumber from "../utils/returnProtocolNumber";
+var db = require('mime-db')
 
 export const stageNine: iCreateTalkStage = {
     async exec(params: iStageParams) {
-
         let userTimer = stageStorage[params.from].userDisponibilityTimer
+
         if (!userTimer) {
             let attendantSession = await getAttendantSessionID()
             if (attendantSession) {
@@ -32,11 +33,18 @@ export const stageNine: iCreateTalkStage = {
     },
 
     async execCreateChat(attendantSession: number, params: iStageParams) {
-        let chatID = await createNewChat(attendantSession, params.from)
+        let imageBuffer: Buffer | undefined = undefined
+        let profilePicURL: string | undefined = params.message.sender.profilePicThumbObj.eurl
+        if(profilePicURL != null || profilePicURL != undefined) imageBuffer = await saveProfilePic(profilePicURL)
+        let chatID = await createNewChat({
+            sessionID: attendantSession,
+            contact: params.from,
+            userPicBuffer: imageBuffer
+        })
         if (chatID) {
+            stageStorage[params.from].chatID = chatID
             stageStorage[params.from].stage = 10
             let protocolNumber = returnProtocolNumber(chatID)
-            stageStorage[params.from].chatID = chatID
             params.client.sendText(params.from, "Atendimento iniciado. O seu número de protocolo é: " + protocolNumber).then(async () => {
             }).catch(error => console.error('Error when sending message', error));
 
@@ -52,7 +60,7 @@ export const stageNine: iCreateTalkStage = {
     async execCreateSyncLoop(params: iStageParams) {
         stageStorage[params.from].syncMessageLoop = true
         //while (stageStorage[params.from].syncMessageLoop) {
-            //await messageLoop()
+        //await messageLoop()
         //}
     },
 

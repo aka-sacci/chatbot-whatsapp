@@ -70,5 +70,11 @@ export interface iSendMessageProps {
     type: string,
     content: string,
     filename: buffer | undefined,
-    fileExtension: string |undefined 
+    fileExtension: string | undefined
+}
+
+export interface iCreateNewChatProps {
+    sessionID: number,
+    contact: string,
+    userPicBuffer: buffer | undefined,
 }

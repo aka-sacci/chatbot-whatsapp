@@ -1,5 +1,4 @@
 import FormData from "form-data";
-import { iReturnServiceData, iSendMessageProps } from "../../../../@types/myTypes";
 
 const axios = require('axios');
 axios.defaults.withCredentials = true

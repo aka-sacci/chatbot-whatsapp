@@ -1,18 +1,23 @@
-import { iSendMessageProps } from "../../../../@types/myTypes";
+import { iCreateNewChatProps, iSendMessageProps } from "../../../../@types/myTypes";
 import checkUserDisponibility from "../../services/chat/checkUserDisponibility";
 import createChat from "../../services/chat/createChat";
+import downloadProfilePic from "../../services/chat/downloadProfilePic";
 import sendMessage from "../../services/chat/sendMessage";
 import FormData from 'form-data';
-const fs = require('fs');
-const path = require('path')
 
 async function getAttendantSessionID(): Promise<number> {
     let result = await checkUserDisponibility();
     return result
 }
 
-async function createNewChat(sessionID: number, contact: string): Promise<number> {
-    let result = await createChat(sessionID, contact)
+async function createNewChat(props: iCreateNewChatProps): Promise<number> {
+    const form = new FormData()
+    form.append('sessionID', props.sessionID)
+    form.append('contact', props.contact)
+    if (props.userPicBuffer != undefined) {
+        form.append('userPhoto', props.userPicBuffer, props.contact + '.jpg')
+    }
+    let result = await createChat(form)
     return result
 }
 
@@ -30,4 +35,10 @@ async function sendNewMessage(props: iSendMessageProps) {
     await sendMessage(form)
 }
 
-export { getAttendantSessionID, createNewChat, sendNewMessage }
+async function saveProfilePic(url: string): Promise<Buffer | undefined> {
+    let result = await downloadProfilePic(url)
+    return result
+    
+}
+
+export { getAttendantSessionID, createNewChat, sendNewMessage, saveProfilePic }
