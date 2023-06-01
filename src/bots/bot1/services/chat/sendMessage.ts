@@ -11,7 +11,7 @@ export default async function sendMessage(form: FormData): Promise<void> {
     let url = httpMainUrl + '' + httpSendMessage
 
     await axios.post(url, form)
-        .then(() => {
+        .then((res: any) => {
         })
         .catch((err: Error) => {
             return undefined

@@ -12,12 +12,12 @@ export interface iCreateTalkStage {
 
 export interface iTalkStage {
     async exec(params?: iStageParams): Promise<void>,
-    async execDecryptFile(message: Message, client: Whatsapp, fileExtension: string): Promise<String | undefined>
+    async execGetMediaData(type: string, message: any, client: Whatsapp, mimetype: string): Promise<iExecGetMediaDataReturn>
 }
 
 export interface iStageParams {
     from: string,
-    message: Message,
+    message: any,
     client: Whatsapp,
     choosenRoute?: number
 }
@@ -69,12 +69,20 @@ export interface iSendMessageProps {
     chat: number,
     type: string,
     content: string,
-    filename: buffer | undefined,
-    fileExtension: string | undefined
+    talkID: string,
+    fileBuffer: buffer | undefined,
+    fileExtension: string | undefined,
+    replyTo: string | undefined
 }
 
 export interface iCreateNewChatProps {
     sessionID: number,
     contact: string,
     userPicBuffer: buffer | undefined,
+}
+
+export interface iExecGetMediaDataReturn {
+    fileBuffer: Buffer,
+    fileExtension: string,
+    content: string | undefined
 }

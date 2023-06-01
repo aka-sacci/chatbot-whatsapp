@@ -1,57 +1,73 @@
 import { Message, Whatsapp } from "venom-bot";
-import { iStageParams, iTalkStage } from "../../../@types/myTypes";
+import { iExecGetMediaDataReturn, iStageParams, iTalkStage } from "../../../@types/myTypes";
 import { stageStorage } from "../../../stageStorage";
 import { sendNewMessage } from "../providers/chat";
-const fs = require('fs');
-const path = require('path')
 var db = require('mime-db')
 
 export const stageTen: iTalkStage = {
     async exec(params: iStageParams) {
         //Toda vez que ele for executado, significa que chegou uma nova mensagem do cliente
         //Sendo assim, toda vez que ele for chamado, deverá ser inserido uma nova mensagem.
-        let chatID = stageStorage[params.from].chatID
+        console.log("Send Message")
         let type = params.message.type
-        let content = params.message.body
-        let message: any = await params.client.getMessageById(params.message.id)
-        let isMedia = Object.keys(message.mediaData).length == 0 ? false : true
-        let fileName = undefined
-        let fileExtension = undefined
-
-        if (isMedia) {
-            let mediaType = message.type
-            fileExtension = mediaType === "ptt" ? "opus" : db[message.mediaData.mimetype].extensions[0]
-            fileName = await params.client.decryptFile(message);
-            content = message?.caption === undefined ? "" : message?.caption
+        let sendMessageObject: any = {
+            chat: stageStorage[params.from].chatID
+        }
+        if (type === "reply") {
+            sendMessageObject.talkID = params.message.id._serialized
+            sendMessageObject.type = params.message.subtype
+            sendMessageObject.content = params.message.body
+            sendMessageObject.replyTo = params.message.quotedStanzaID
+            if (params.message.subtype !== "chat") {
+                let returnResult = await this.execGetMediaData(params.message.subtype, params.message, params.client, params.message.mimetype)
+                sendMessageObject.fileBuffer = returnResult.fileBuffer
+                sendMessageObject.fileExtension = returnResult.fileExtension
+                sendMessageObject.content = returnResult.content
+            }
+        } else {
+            let message: any = await params.client.getMessageById(params.message.id)
+            let isMedia = Object.keys(message.mediaData).length == 0 ? false : true
+            sendMessageObject.talkID = message.id
+            sendMessageObject.type = type
+            sendMessageObject.content = message.content
+            if (isMedia) {
+                let returnResult = await this.execGetMediaData(type, message, params.client, message.mediaData.mimetype)
+                sendMessageObject.fileBuffer = returnResult.fileBuffer
+                sendMessageObject.fileExtension = returnResult.fileExtension
+                sendMessageObject.content = returnResult.content
+            }
         }
 
         await sendNewMessage({
-            chat: chatID,
-            type,
-            content: content,
-            filename: fileName,
-            fileExtension
+            ...sendMessageObject
         })
 
     },
-    async execDecryptFile(message: Message, client: Whatsapp, fileExtension: string): Promise<String | undefined> {
-        try {
-            const buffer = await client.decryptFile(message);
-            const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-            const filePath = path.join(process.cwd(), '/src/assets/')
-            let fileName
-            fileName = uniqueSuffix + "." + fileExtension
-            let savePath = undefined
-            savePath = filePath + fileName
-
-            fs.writeFile(savePath, buffer, (err: Error) => {
-                if (err) {
-                    fileName =  undefined
-                }
-            });
-            return fileName
-        } catch (error) {
-            return undefined
+    async execGetMediaData(type: string, message: any, client: Whatsapp, mimetype: string): Promise<iExecGetMediaDataReturn> {
+        let fileBuffer = undefined
+        let fileExtension = undefined
+        let content = undefined
+        switch (type) {
+            case "ptt":
+                fileExtension = "opus"
+                break;
+            case "sticker":
+                message.clientUrl = "https://pps.whatsapp.net" + message.directPath
+                fileExtension = "png"
+                break;
+            default:
+                fileExtension = db[mimetype].extensions[0]
+                break
         }
+
+        fileBuffer = await client.decryptFile(message);
+        content = message?.caption === undefined ? "" : message?.caption
+
+        return {
+            fileBuffer,
+            fileExtension,
+            content
+        }
+
     }
 }

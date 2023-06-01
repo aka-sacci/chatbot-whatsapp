@@ -4,8 +4,8 @@ export default function returnUserDataMenu(from: string, stage: number): Array<s
     let complement = stageStorage[from].contactData?.address?.complement === null ||
         stageStorage[from].contactData?.address?.complement === undefined ||
         stageStorage[from].contactData?.address?.complement === 'undefined'
-        ? "\n" :
-        `\n Complemento: ${stageStorage[from].contactData?.address?.complement}. \n`
+        ? "" :
+        `*Complemento:* ${stageStorage[from].contactData?.address?.complement}. \n`
     let firstMessage = ""
     switch (stage) {
         case 1:

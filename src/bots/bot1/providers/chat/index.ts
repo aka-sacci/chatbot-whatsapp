@@ -24,13 +24,17 @@ async function createNewChat(props: iCreateNewChatProps): Promise<number> {
 async function sendNewMessage(props: iSendMessageProps) {
     const form = new FormData()
     const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
-    let { chat, type, content } = props
+    let { chat, type, content, talkID } = props
     form.append('chat', String(chat))
-    form.append('sender', '2')
+    form.append('sender', "2")
     form.append('type', type)
     form.append('content', content)
-    if (props.filename != undefined) {
-        form.append('file', props.filename, uniqueSuffix + '.' + props.fileExtension)
+    form.append('talkID', talkID)
+    if (props.fileBuffer != undefined) {
+        form.append('file', props.fileBuffer, uniqueSuffix + '.' + props.fileExtension)
+    }
+    if (props.replyTo != undefined) {
+        form.append('replyTo', props.replyTo)
     }
     await sendMessage(form)
 }
@@ -38,7 +42,7 @@ async function sendNewMessage(props: iSendMessageProps) {
 async function saveProfilePic(url: string): Promise<Buffer | undefined> {
     let result = await downloadProfilePic(url)
     return result
-    
+
 }
 
 export { getAttendantSessionID, createNewChat, sendNewMessage, saveProfilePic }
