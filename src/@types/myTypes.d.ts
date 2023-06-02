@@ -31,7 +31,7 @@ export interface iStageStorage {
         contactData: iContactData,
         registered?: boolean,
         comeFromStage?: number,
-        inactivityTimer?: boolean,
+        inactivityTimer: null | NodeJS.Timeout,
         userDisponibilityTimer?: boolean
         syncMessageLoop: boolean,
         chatID: number

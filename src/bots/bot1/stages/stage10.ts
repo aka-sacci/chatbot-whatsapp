@@ -2,12 +2,14 @@ import { Message, Whatsapp } from "venom-bot";
 import { iExecGetMediaDataReturn, iStageParams, iTalkStage } from "../../../@types/myTypes";
 import { stageStorage } from "../../../stageStorage";
 import { sendNewMessage } from "../providers/chat";
+import { inactivityTimerSync } from "../providers/session";
 var db = require('mime-db')
 
 export const stageTen: iTalkStage = {
     async exec(params: iStageParams) {
         //Toda vez que ele for executado, significa que chegou uma nova mensagem do cliente
         //Sendo assim, toda vez que ele for chamado, deverá ser inserido uma nova mensagem.
+        inactivityTimerSync(params)
         console.log("Send Message")
         let type = params.message.type
         let sendMessageObject: any = {

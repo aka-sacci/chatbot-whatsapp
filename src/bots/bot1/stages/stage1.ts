@@ -1,9 +1,11 @@
 import { iStage, iStageParams } from "../../../@types/myTypes";
 import { stageStorage } from "../../../stageStorage";
+import { inactivityTimerSync } from "../providers/session";
 import returnUserDataMenu from "../utils/returnUserDataMenu";
 
 export const stageOne: iStage = {
     async exec(params: iStageParams) {
+        inactivityTimerSync(params)
         const returnedMessage = params.message.body;
 
         switch (returnedMessage) {
@@ -19,10 +21,11 @@ export const stageOne: iStage = {
                 } else {
                     stageStorage[params.from].stage = 3;
                     stageStorage[params.from].comeFromStage = 1
-                    return ['Por gentileza, digite seu nome:']
+                    return ['Certo. Para continuarmos o atendimento, precisamos de algumas informações 😀',
+                        'Por gentileza, digite seu *nome*:']
                 }
             default:
-                return ["❌Opção Inválida! Por favor, escolha novamente!"]
+                return ["❌ Opção Inválida! Escolha novamente!"]
         }
 
     }

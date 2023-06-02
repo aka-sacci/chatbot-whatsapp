@@ -1,10 +1,12 @@
 import { iStage, iStageParams } from "../../../../../@types/myTypes";
 import { stageStorage } from "../../../../../stageStorage";
 import { updateContactData, createContact } from "../../../providers/contactProvider";
+import { inactivityTimerSync } from "../../../providers/session";
 import returnUserDataMenu from "../../../utils/returnUserDataMenu";
 
 export const stageEight: iStage = {
     async exec(params: iStageParams) {
+        inactivityTimerSync(params)
         if (params.message.type === 'chat') {
             let complement = params.message.body === "0" ? undefined : params.message.body
             stageStorage[params.from].contactData.address = {

@@ -5,6 +5,7 @@
 
 ## Next Features
 
-- Ajustar o timeout das conversas;
+- Ajustar o timeout das conversas - OK;
 - Catch de arquivos cujo type não existe, ajustando uma mensagem automática que DEVE ser inserida no DB
-- Rever emojis nos stages
+- Rever emojis nos stages - OK
+- Consumir APIs de: Expiração da conversa E sincronização das mensagens  

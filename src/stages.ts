@@ -2,11 +2,12 @@ import { stageZero, stageFive, stageFour, stageOne, stageSix, stageTwo, stageThr
 import { stageTest } from './bots/bot1/stages/stageTest';
 
 import { stageStorage } from './stageStorage';
+import { stageDefaultValues } from './utils/returnStageDefaultValues';
 
 export const stages = [
   {
     descricao: 'Welcome and Menu',
-    stage: stageTest,
+    stage: stageZero,
   },
   {
     descricao: 'Show saved contact data OR collect his name',
@@ -55,25 +56,7 @@ export function getStage(from: string): number {
     return stageStorage[from].stage;
   }
   stageStorage[from] = {
-    stage: 0,
-    email: "",
-    name: "",
-    option: "",
-    contactData: {
-      name: "",
-      phone: "",
-      registered: false,
-      address: {
-        street: "",
-        number: 0,
-        district: "",
-        cep: 0
-      }
-    },
-    inactivityTimer: false,
-    userDisponibilityTimer: false,
-    syncMessageLoop: false,
-    chatID: 0
+    ...stageDefaultValues
   };
 
   return stageStorage[from].stage;

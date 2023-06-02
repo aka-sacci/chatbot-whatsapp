@@ -1,10 +1,12 @@
 import { iStage, iStageParams } from "../../../../../@types/myTypes";
 import { stageStorage } from "../../../../../stageStorage";
 import { updateContactData } from "../../../providers/contactProvider";
+import { inactivityTimerSync } from "../../../providers/session";
 import returnUserDataMenu from "../../../utils/returnUserDataMenu";
 
 export const stageThree: iStage = {
     async exec(params: iStageParams) {
+        inactivityTimerSync(params)
         let returnedMessage = ""
         returnedMessage = params.message.body;
 
@@ -32,7 +34,7 @@ export const stageThree: iStage = {
                     stageStorage[params.from].stage = 4
                     return ['Certo, agora vamos ao endereço.',
                         'Iremos pedir os dados de endereço separadamente, então, por favor, siga às instruções especificadas a seguir.',
-                        'Por favor, digite *APENAS* o nome da *RUA*, *AVENIDA* ou *TRAVESSA* que você mora:']
+                        'Por favor, digite o nome da *RUA*, *AVENIDA* ou *TRAVESSA* que você mora:']
                 default:
                     stageStorage[params.from].stage = 0
                     return ['Houve um problema interno! Por favor, tente novamente!']

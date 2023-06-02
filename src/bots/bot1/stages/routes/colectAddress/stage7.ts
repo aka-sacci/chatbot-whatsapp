@@ -1,8 +1,10 @@
 import { iStage, iStageParams } from "../../../../../@types/myTypes";
 import { stageStorage } from "../../../../../stageStorage";
+import { inactivityTimerSync } from "../../../providers/session";
 
 export const stageSeven: iStage = {
     async exec(params: iStageParams) {
+        inactivityTimerSync(params)
         if (params.message.type === 'chat') {
             let cep = params.message.body.replace(/[^\d]/g, '')
             if (cep.length == 8) {
@@ -13,13 +15,13 @@ export const stageSeven: iStage = {
                     cep: Number(cep)
                 }
                 stageStorage[params.from].stage = 8
-                return ["Por último, digite o *complemento*:",
-                    'Se não houver, digite apenas 0:']
+                return ["Só mais uma! Agora, diigite o *complemento*:",
+                    'Se não houver complemento, digite apenas 0:']
             } else {
-                return ["❌ CEP inválido! Por favor, escreva o *CEP* da sua casa!"]
+                return ["❌ CEP inválido! Por favor, escreva o CEP da sua casa!"]
             }
         } else {
-            return ["❌ Formato inválido! Por favor, escreva o *CEP* da sua casa!"]
+            return ["❌ Formato inválido! Por favor, escreva o CEP da sua casa!"]
         }
     }
 }

@@ -1,11 +1,13 @@
 import { iStage, iStageParams } from "../../../@types/myTypes";
 import { stageStorage } from "../../../stageStorage";
 import { getContactData, isContactRegistered } from "../providers/contactProvider";
+import { inactivityTimerSync } from "../providers/session";
 import returnGreeting from "../utils/returnGreeting";
 
 
 export const stageZero: iStage = {
     async exec(params: iStageParams) {
+        inactivityTimerSync(params)
         let contactRegister = await isContactRegistered(params.from)
         if (contactRegister === true) {
             let contactData = await getContactData(params.from)
