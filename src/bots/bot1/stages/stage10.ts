@@ -59,7 +59,7 @@ export const stageTen: iTalkStage = {
                 fileExtension = db[mimetype].extensions[0]
                 break
         }
-
+        message.type = type
         fileBuffer = await client.decryptFile(message);
         content = message?.caption === undefined ? "" : message?.caption
 
