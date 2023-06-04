@@ -45,4 +45,15 @@ async function saveProfilePic(url: string): Promise<Buffer | undefined> {
 
 }
 
-export { getAttendantSessionID, createNewChat, sendNewMessage, saveProfilePic }
+async function sendErrorMessage(props: iSendMessageProps) {
+    const form = new FormData()
+    let { chat, type, content, talkID } = props
+    form.append('chat', String(chat))
+    form.append('sender', "1")
+    form.append('type', type)
+    form.append('content', content)
+    form.append('talkID', talkID)
+    await sendMessage(form)
+}
+
+export { getAttendantSessionID, createNewChat, sendNewMessage, saveProfilePic, sendErrorMessage }
