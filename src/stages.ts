@@ -7,7 +7,7 @@ import { stageDefaultValues } from './utils/returnStageDefaultValues';
 export const stages = [
   {
     descricao: 'Welcome and Menu',
-    stage: stageTest,
+    stage: stageTest
   },
   {
     descricao: 'Show saved contact data OR collect his name',

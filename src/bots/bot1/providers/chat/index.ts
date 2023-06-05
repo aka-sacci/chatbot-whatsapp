@@ -1,7 +1,9 @@
 import { iCreateNewChatProps, iSendMessageProps } from "../../../../@types/myTypes";
+import setDelay from "../../../../utils/setDelay";
 import checkUserDisponibility from "../../services/chat/checkUserDisponibility";
 import createChat from "../../services/chat/createChat";
 import downloadProfilePic from "../../services/chat/downloadProfilePic";
+import expireChat from "../../services/chat/expireChat";
 import sendMessage from "../../services/chat/sendMessage";
 import FormData from 'form-data';
 
@@ -56,4 +58,9 @@ async function sendErrorMessage(props: iSendMessageProps) {
     await sendMessage(form)
 }
 
-export { getAttendantSessionID, createNewChat, sendNewMessage, saveProfilePic, sendErrorMessage }
+async function expireChatByInactivity(chatID: number): Promise<boolean> {
+    let result = await expireChat(chatID, "inactivity")
+    return result
+}
+
+export { getAttendantSessionID, createNewChat, sendNewMessage, saveProfilePic, sendErrorMessage, expireChatByInactivity }
