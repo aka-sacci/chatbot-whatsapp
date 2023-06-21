@@ -40,7 +40,7 @@ export const stageThree: iStage = {
                     return ['Houve um problema interno! Por favor, tente novamente!']
             }
         } else {
-            return ["❌ Formato inválid! Por favor, *digite* o seu nome!"]
+            return ["❌ Formato inválido! Por favor, *digite* o seu nome!"]
         }
 
     }

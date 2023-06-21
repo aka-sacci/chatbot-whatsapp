@@ -1,13 +1,11 @@
-import { create } from 'venom-bot';
+import { Whatsapp, create } from 'venom-bot';
 
 
 function createBot(sessionName: string, bot: Function) {
     create({
-        session: 'store',
-        multidevice: true,
-        headless: false,
+        session: 'store'
     })
-        .then((client) => bot(client))
+        .then((client: Whatsapp) => bot(client))
         .catch((err: Error) => {
             console.log(err)
             process.exit(1)

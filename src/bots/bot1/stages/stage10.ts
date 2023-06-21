@@ -15,36 +15,25 @@ export const stageTen: iTalkStage = {
         let sendMessageObject: any = {
             chat: stageStorage[params.from].chatID
         }
-
         try {
-            if (type === "reply") {
-                sendMessageObject.talkID = params.message.id._serialized
-                sendMessageObject.type = params.message.subtype
-                sendMessageObject.content = params.message.body
-                sendMessageObject.replyTo = params.message.quotedStanzaID
-                if (params.message.subtype !== "chat") {
-                    let returnResult = await this.execGetMediaData(params.message.subtype, params.message, params.client, params.message.mimetype)
-                    sendMessageObject.fileBuffer = returnResult.fileBuffer
-                    sendMessageObject.fileExtension = returnResult.fileExtension
-                    sendMessageObject.content = returnResult.content
-                }
-            } else {
-                let message: any = await params.client.getMessageById(params.message.id)
-                let isMedia = Object.keys(message.mediaData).length == 0 ? false : true
-                sendMessageObject.talkID = message.id
-                sendMessageObject.type = type
-                sendMessageObject.content = message.content
-                if (isMedia) {
-                    let returnResult = await this.execGetMediaData(type, message, params.client, message.mediaData.mimetype)
-                    sendMessageObject.fileBuffer = returnResult.fileBuffer
-                    sendMessageObject.fileExtension = returnResult.fileExtension
-                    sendMessageObject.content = returnResult.content
-                }
+            let message: any = await params.client.getMessageById(params.message.id)
+            let isMedia = Object.keys(message.mediaData).length == 0 ? false : true
+            sendMessageObject.talkID = message.id
+            sendMessageObject.type = type
+            sendMessageObject.content = message.content
+            sendMessageObject.replyTo = params.message.quotedStanzaID
+            if (isMedia) {
+                let returnResult = await this.execGetMediaData(type, message, params.client, message.mediaData.mimetype)
+                sendMessageObject.fileBuffer = returnResult.fileBuffer
+                sendMessageObject.fileExtension = returnResult.fileExtension
+                sendMessageObject.content = returnResult.content
             }
+
 
             await sendNewMessage({
                 ...sendMessageObject
             })
+            
         } catch (err: any) {
             if (err.name == "FILE_UNSUPORTED") {
                 let talkID = await params.client.sendText(params.from, "Esse tipo de arquivo não é suportado! Por favor, tente novamente!")

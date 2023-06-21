@@ -16,7 +16,7 @@ export const stageZero: iStage = {
         let greeting = returnGreeting()
         stageStorage[params.from].stage = 1;
         stageStorage[params.from].registered = contactRegister
-        return ["👋 Olá, " + greeting + "! Seja muito bem vindo(a) ao atendimento digital da FarmaNova!💊⚕️🥼",
+        return ["👋 Olá, " + greeting + "! Seja muito bem vindo(a) ao atendimento digital da Farmácia XXX!💊⚕️🥼",
             "Como podemos te ajudar? \n" +
             "Por favor, digite um número da opção que deseja: \n" +
             "*1 - Orçamento para Medicamentos 💊* \n" +

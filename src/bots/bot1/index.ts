@@ -1,10 +1,10 @@
-import { Whatsapp } from 'venom-bot';
+import { Whatsapp, Message } from 'venom-bot';
 import { getStage, stages } from '../../stages';
 import setDelay from '../../utils/setDelay';
 
 async function bot1(client: Whatsapp) {
 
-  client.onMessage(async (message) => {
+  client.onMessage(async (message: Message) => {
     if (!message.isGroupMsg) {
       const currentStage = getStage(message.from);
       if (currentStage <= 8) {
@@ -18,7 +18,7 @@ async function bot1(client: Whatsapp) {
           for (var i = 0; i < messageResponse.length; i++) {
             await setDelay(1500);
             await client.sendText(message.from, messageResponse[i]).then(async () => {
-            }).catch(error => console.error('Error when sending message', error));
+            }).catch((error: any) => console.error('Error when sending message', error));
           }
 
           let newCurrentStage = getStage(message.from);

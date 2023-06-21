@@ -19,7 +19,7 @@
     "form-data": "^4.0.0",
     "mime-db": "^1.52.0",
     "sequelize": "^6.28.0",
-    "venom-bot": "^4.3.7"
+    "venom-bot": "^5.0.6"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
